@@ -57,6 +57,7 @@ Para recrear nuestro dataset:
 - Usar esa misma macro para reescalar todas las imágenes a 256 x 256 pixeles y guardarlas en formato .jpg (importante que sea .jpg y no cualquier otro)
 - Exportar a una carpeta (en nuestro caso "/Blurred")
 - Repetir todo pero sin desenfocar y exportar a otra carpeta (en nuestro caso "/not_blurred_resized")
+- En la carpeta de google drive encontraras las primeras 11000 fotos del dataset, el resto se subirán más adelante
 
 
 
