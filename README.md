@@ -78,6 +78,7 @@ Es necesario modificar ciertas variables en `run.py`:
 ## El entrenamiento:
 
 El entrenamiento emplea un `batch_size` de una sola imágen para maximizar fidelidad visual
+
 Tensorflow automáticamente asigna recursos de hardware así que en principio no es necesario seleccionar si quieres entrenar con GPU o no, si esta disponible se usará.
 Cada iteración tarda unos 6 minutos en una GTX 960 con `n=1000` y fue entrenado durante 220 iteraciones (recomendable mínimo 200 iteraciones para algunos resultados decentes, pero cuantas más, mejor)
 
