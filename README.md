@@ -10,7 +10,7 @@ Utilizar el modelo Pix2Pix para entrenar a una IA y corregir imagenes desenfocad
 | http://stylegan.xyz/video | Mas ejemplos.
 | http://stylegan.xyz/code  | Codigo original.
 | https://github.com/NVlabs/ffhq-dataset  | Flickr-Faces-HQ dataset.
-| http://stylegan.xyz/drive | Carpeta Google Drive.
+| https://drive.google.com/drive/folders/1cBsublceZhxrFgqcR_XMk1bkmAkmnKiY?usp=sharing | Carpeta Google Drive.
 
 ## Requisitos:
 
