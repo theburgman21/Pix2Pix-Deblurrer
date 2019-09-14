@@ -18,7 +18,7 @@ Toda la red fue programada y entrenada desde un entorno de google Colab ejecutad
 
 Es altamente recomendable utilizar una o varias GPUs Nvidia debido a la compatibilidad que proporciona tensorflow a las tarjetas Nvidia, existe una libreria llamada ROCm para ejectuar tensorflow en GPUs AMD pero carece de la cantidad de desarrollo y soporte que tiene CUDA. 
 
-Hemos creado una version de Pix2Pix-Deblurrer para GPUs AMD, para utilizarla debes instalar ROCm suiguiendo [estos pasos](www)
+Hemos creado una version de Pix2Pix-Deblurrer para GPUs AMD, para utilizarla debes instalar ROCm suiguiendo [estos pasos](https://github.com/ROCmSoftwarePlatform/tensorflow-upstream/blob/develop-upstream/rocm_docs/tensorflow-install-basic.md)
 
 - Ubuntu 18 o similares
 - Tensorflow 2.0 rc0
