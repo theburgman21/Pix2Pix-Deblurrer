@@ -77,7 +77,7 @@ Es necesario modificar ciertas variables en `run.py`
 
 El entrenamiento emplea un `batch_size` de una sola imagen para maximizar fidelidad visual
 Tensorflow automaticamente asigna recursos de hardware así que en principio no es necesario seleccionar si quieres entrenar con GPU o no, si esta disponible se usará.
-Cada iteracion tarda unos 6 minutos en una GTX 960 con `n=1000` y fue entrenado durante 500 iteraciones (recomendable minimo 400 iteraciones para buenos resultados)
+Cada iteracion tarda unos 6 minutos en una GTX 960 con `n=1000` y fue entrenado durante 250 iteraciones (recomendable minimo 200 iteraciones para algunos resultados decentes, pero cuantas más, mejor)
 
 
 ## Evaluación y guardado
@@ -85,6 +85,13 @@ Cada iteracion tarda unos 6 minutos en una GTX 960 con `n=1000` y fue entrenado 
 El modelo trata de mejorar las imagenes generadas mediante un valor de error determinado por `total_gen_loss = gan_loss + (100 * pixel_loss)` donde `gan_loss` es el valor de error generado por el discriminador (patchGAN) y `pixel_loss` es la diferencia media en el valor de cada pixel entre la imagen original y la generada. `pixel_loss`esta multiplicado por `100`para que sea 100 veces mas significativo que el valor del discriminador lo cual mejora los resultados según el equipo de Pix2Pix detalla en su paper (link arriba).
 
 Todos los pesos de tanto el generador como el discriminador asi como todas las variables son guardadas en la carpeta `tf_checkpoints` y recupera el ultimo punto guardado al ejecutar el codigo.
+
+
+## Como usar el modelo pre-entrenado:
+
+Descargar este repositorio y modificar la variable `PATH` en `run.py` para que la ruta te lleve hasta la carpeta donde se encuentra `run.py`.
+
+Modificar la variable `epoch_number` al numero de iteraciones de entrenamiento que quieras usar (ten en cuenta que debes establecer el numero total, si entrenas 50 iteraciones y despues entrenas otra vez con `epoch_number = 100` solo entrenará otras 50 iteraciones, esto es asi para llevar la cuenta de cuanto ha iterado aunque se interrumpa el entrenamiento)
 
 
 ## Anexo
