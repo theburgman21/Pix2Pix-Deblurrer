@@ -99,6 +99,8 @@ Descargar este repositorio y modificar la variable `PATH` en `run.py` para que l
 
 Modificar la variable `epoch_number` al numero de iteraciones de entrenamiento que quieras usar (ten en cuenta que debes establecer el numero total, si entrenas 50 iteraciones y despues entrenas otra vez con `epoch_number = 100` solo entrenará otras 50 iteraciones, esto es asi para llevar la cuenta de cuanto ha iterado aunque se interrumpa el entrenamiento)
 
+crear una carpeta llamada `tf_ckpts` y pegar dentro todos los archivos de guardado (el ultimo link de arriba)
+
 
 ## Anexo
 
