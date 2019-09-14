@@ -24,7 +24,7 @@ Es altamente recomendable utilizar una o varias GPUs Nvidia debido a la compatib
 En principio todo el codigo de este repositorio es compatible con tarjetas AMD, ya que nos funcionó con una RX 470, para utilizarla debes instalar ROCm siguiendo [estos pasos](https://github.com/ROCmSoftwarePlatform/tensorflow-upstream/blob/develop-upstream/rocm_docs/tensorflow-install-basic.md)
 
 - Ubuntu 18 o similares
-- Tensorflow 2.0 rc0
+- Tensorflow 1.14
 - Numpy 1.18.0
 - Pillow 6.1.0
 - python 64-bit 3.7.3
