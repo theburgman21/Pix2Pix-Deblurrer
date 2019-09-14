@@ -13,6 +13,7 @@ Utilizar el modelo Pix2Pix para entrenar a una IA y corregir imágenes desenfoca
 | https://colab.research.google.com/drive/1sud5mrD6VnZVp8ti7CHv5Dq3MJmdseEj | Codigo original (Google Colab)
 | https://github.com/NVlabs/ffhq-dataset  | Flickr-Faces-HQ dataset.
 | https://drive.google.com/drive/folders/1cBsublceZhxrFgqcR_XMk1bkmAkmnKiY?usp=sharing | Carpeta Google Drive.
+| https://drive.google.com/drive/folders/1PZvCYsMJVMDaJawz1w9ledmY9yWrciQc?usp=sharing | Modelo pre-entrenado (tf_ckpts)
 
 ## Requisitos:
 
@@ -78,7 +79,7 @@ Es necesario modificar ciertas variables en `run.py`:
 
 El entrenamiento emplea un `batch_size` de una sola imágen para maximizar fidelidad visual
 Tensorflow automáticamente asigna recursos de hardware así que en principio no es necesario seleccionar si quieres entrenar con GPU o no, si esta disponible se usará.
-Cada iteración tarda unos 6 minutos en una GTX 960 con `n=1000` y fue entrenado durante 250 iteraciones (recomendable mínimo 200 iteraciones para algunos resultados decentes, pero cuantas más, mejor)
+Cada iteración tarda unos 6 minutos en una GTX 960 con `n=1000` y fue entrenado durante 220 iteraciones (recomendable mínimo 200 iteraciones para algunos resultados decentes, pero cuantas más, mejor)
 
 También es posible entrenar usando la CPU pero cualquier tarjeta gráfica barata de hace unos años es minimo el doble de rápida que cualquier procesador de alta gama actual.
 
