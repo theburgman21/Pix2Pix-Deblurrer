@@ -1,6 +1,6 @@
 # Pix2Pix-Deblurrer
 
-Utilizar el modelo Pix2Pix para entrenar a una IA y corregir imagenes desenfocadas.
+Utilizar el modelo Pix2Pix para entrenar a una IA y corregir imágenes desenfocadas.
 
 ![Image](./total.jpg)
 
@@ -18,9 +18,9 @@ Utilizar el modelo Pix2Pix para entrenar a una IA y corregir imagenes desenfocad
 
 Toda la red fue programada y entrenada desde un entorno de google Colab ejecutado de manera local en una Nvidia GTX 960 4Gb (debido a las limitaciones de tiempo de google Colab y a fallos de sincronización con google drive)
 
-Es altamente recomendable utilizar una o varias GPUs Nvidia debido a la compatibilidad que proporciona tensorflow a las tarjetas Nvidia, existe una libreria llamada ROCm para ejectuar tensorflow en GPUs AMD pero carece de la cantidad de desarrollo y soporte que tiene CUDA. 
+Es altamente recomendable utilizar una o varias GPUs Nvidia debido a la compatibilidad que proporciona tensorflow a las tarjetas Nvidia, existe una librería llamada ROCm para ejectuar tensorflow en GPUs AMD pero carece de la cantidad de desarrollo y soporte que tiene CUDA. 
 
-Hemos creado una version de Pix2Pix-Deblurrer para GPUs AMD, para utilizarla debes instalar ROCm suiguiendo [estos pasos](https://github.com/ROCmSoftwarePlatform/tensorflow-upstream/blob/develop-upstream/rocm_docs/tensorflow-install-basic.md)
+En principio todo el codigo de este repositorio es compatible con tarjetas AMD, ya que nos funcionó con una RX 470, para utilizarla debes instalar ROCm siguiendo [estos pasos](https://github.com/ROCmSoftwarePlatform/tensorflow-upstream/blob/develop-upstream/rocm_docs/tensorflow-install-basic.md)
 
 - Ubuntu 18 o similares
 - Tensorflow 2.0 rc0
@@ -42,49 +42,51 @@ Amd:
 
 
 
-## Donde conseguir las imagenes:
+## Donde conseguir las imágenes:
 
-Nosotros utilizamos el Flickr-Faces-HQ dataset, lo puedes en econtrar aqui [Flickr-Faces-HQ repository](https://github.com/NVlabs/ffhq-dataset).
-Es altamente recomendable descargar las imagenes mediante el archivo de python que se encuentra en su repositorio
+Nosotros utilizamos el Flickr-Faces-HQ dataset, lo puedes encontrar aquí [Flickr-Faces-HQ repository](https://github.com/NVlabs/ffhq-dataset).
+Es áltamente recomendable descargar las imágenes mediante el archivo de python que se encuentra en su repositorio.
 
 
-## Preprocesamiento de imagen:
+## Preprocesamiento de imágen:
 
-Adobe Photoshop CC fue usado para modificar las imagenes del dataset FFHQ.
+Adobe Photoshop CC fue usado para modificar las imágenes del dataset FFHQ.
 
 Para recrear nuestro dataset:
-- Crear una macro en photoshop que desenfoque las imagenes originales (aqui puedes elegir el tipo de desenfoque y su intensidad,     recomendamos el desenfoque de lente ya que es lo más parecido a una imagen desenfocada de forma natural por una camara)
-- Usar esa misma macro para reescalar todas las imagenes a 256 x 256 pixeles y guardlas en formato .jpg (importante que sea .jpg y   no cualquier otro)
-- Exportar a una carpeta (en nuestro caso "/Blurred_resized")
+- Crear una macro en photoshop que desenfoque las imágenes originales (aquí puedes elegir el tipo de desenfoque y su intensidad, recomendamos el desenfoque de lente ya que es lo más parecido a una imágen desenfocada de forma natural por una cámara)
+- Usar esa misma macro para reescalar todas las imágenes a 256 x 256 pixeles y guardarlas en formato .jpg (importante que sea .jpg y no cualquier otro)
+- Exportar a una carpeta (en nuestro caso "/Blurred")
 - Repetir todo pero sin desenfocar y exportar a otra carpeta (en nuestro caso "/not_blurred_resized")
 
 
 
 ## Antes de entrenar:
 
-Es necesario modificar ciertas variables en `run.py`
+Es necesario modificar ciertas variables en `run.py`:
 
-- Establecer `PATH` a ser la ruta completa hasta la carpeta donde se ubica `run.py`
+- Establecer `PATH` a ser la ruta completa hasta la carpeta donde se ubica `run.py`.
 
-- Establecer la variable `n` al numero de imagenes que deseas cargar para el entrenamiento y testeo (en un ratio 8:2)
-  los resultados mostrados aqui han sido entrenados con `n = 1000` debido a nuestras limitaciones de GPU, en un sistema con
-  multiples RTX 2080ti o Tesla V100 se podria configurar hasta `n = 71000` para usar todas las imagenes del dataset (ten en cuenta
-  que eso incurre un costo computacional inmenso y por lo tanto tardará mucho más en completar su entrenamiento, a cambio generará 
-  resultados mucho mas realistas y generalizables)
+- Establecer la variable `n` al numero de imágenes que deseas cargar para el entrenamiento y testeo (en un ratio 8:2)
+  los resultados mostrados aqui han sido entrenados con `n = 1000` debido a nuestras limitaciones de GPU, en un sistema
+  con multiples RTX 2080ti o Tesla V100 se podria configurar hasta `n = 71000` para usar todas las imagenes del dataset
+  (ten en cuenta que eso incurre un costo computacional inmenso y por lo tanto tardará mucho más en completar su 
+  entrenamiento, a cambio generará resultados mucho mas realistas y generalizables)
   
 
 ## El entrenamiento:
 
-El entrenamiento emplea un `batch_size` de una sola imagen para maximizar fidelidad visual
-Tensorflow automaticamente asigna recursos de hardware así que en principio no es necesario seleccionar si quieres entrenar con GPU o no, si esta disponible se usará.
-Cada iteracion tarda unos 6 minutos en una GTX 960 con `n=1000` y fue entrenado durante 250 iteraciones (recomendable minimo 200 iteraciones para algunos resultados decentes, pero cuantas más, mejor)
+El entrenamiento emplea un `batch_size` de una sola imágen para maximizar fidelidad visual
+Tensorflow automáticamente asigna recursos de hardware así que en principio no es necesario seleccionar si quieres entrenar con GPU o no, si esta disponible se usará.
+Cada iteración tarda unos 6 minutos en una GTX 960 con `n=1000` y fue entrenado durante 250 iteraciones (recomendable mínimo 200 iteraciones para algunos resultados decentes, pero cuantas más, mejor)
+
+También es posible entrenar usando la CPU pero cualquier tarjeta gráfica barata de hace unos años es minimo el doble de rápida que cualquier procesador de alta gama actual.
 
 
 ## Evaluación y guardado
 
-El modelo trata de mejorar las imagenes generadas mediante un valor de error determinado por `total_gen_loss = gan_loss + (100 * pixel_loss)` donde `gan_loss` es el valor de error generado por el discriminador (patchGAN) y `pixel_loss` es la diferencia media en el valor de cada pixel entre la imagen original y la generada. `pixel_loss`esta multiplicado por `100`para que sea 100 veces mas significativo que el valor del discriminador lo cual mejora los resultados según el equipo de Pix2Pix detalla en su paper (link arriba).
+El modelo trata de mejorar las imágenes generadas mediante un valor de error determinado por `total_gen_loss = gan_loss + (100 * pixel_loss)` donde `gan_loss` es el valor de error generado por el discriminador (patchGAN) y `pixel_loss` es la diferencia media en el valor de cada pixel entre la imágen original y la generada. `pixel_loss`esta multiplicado por `100`para que sea 100 veces mas significativo que el valor del discriminador lo cual mejora los resultados según el equipo de Pix2Pix detalla en su paper (link arriba).
 
-Todos los pesos de tanto el generador como el discriminador asi como todas las variables son guardadas en la carpeta `tf_checkpoints` y recupera el ultimo punto guardado al ejecutar el codigo.
+Todos los pesos de tanto el generador como el discriminador así como todas las variables son guardadas en la carpeta `tf_checkpoints` y recupera el ultimo punto guardado al ejecutar el codigo.
 
 
 ## Como usar el modelo pre-entrenado:
@@ -97,11 +99,11 @@ Modificar la variable `epoch_number` al numero de iteraciones de entrenamiento q
 ## Anexo
 
 Asegurate de que en la misma carpeta que `run.py` existe:
-- Un arhcivo llamado `epochs.txt` con una única linea escrita donde ponga `0`
-- una carpeta llamada `output`, `output_2` y `tf_checkpionts`
-- Si utilizas tu propio dataset asegurate de que tus imagenes sean de `256 x 256`, y que en tus 2 carpetas tengas 
-  exactamente el mismo numero de imagenes y que el nombre de cada archivo de una carpeta sea exactamente igual a cada 
-  correspondiene imagen de la otra carpeta
+- Un archivo llamado `epochs.txt` con una única línea escrita donde ponga `0`
+- una carpeta llamada `output`, `output_2` y `tf_checkpoints`
+- Si utilizas tu propio dataset asegúrate de que tus imágenes sean de `256 x 256`, y que en tus 2 carpetas tengas 
+  exáctamente el mismo número de imágenes y que el nombre de cada archivo de una carpeta sea exáctamente igual a cada 
+  correspondiente imágen de la otra carpeta.
 
 
 
