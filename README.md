@@ -2,6 +2,8 @@
 
 Utilizar el modelo Pix2Pix para entrenar a una IA y corregir imagenes desenfocadas.
 
+![Image](./total.jpg)
+
 ## Recursos:
 
 | Link                      | Descripción
@@ -82,8 +84,17 @@ Cada iteracion tarda unos 6 minutos en una GTX 960 con `n=1000` y fue entrenado 
 
 El modelo trata de mejorar las imagenes generadas mediante un valor de error determinado por `total_gen_loss = gan_loss + (100 * pixel_loss)` donde `gan_loss` es el valor de error generado por el discriminador (patchGAN) y `pixel_loss` es la diferencia media en el valor de cada pixel entre la imagen original y la generada. `pixel_loss`esta multiplicado por `100`para que sea 100 veces mas significativo que el valor del discriminador lo cual mejora los resultados según el equipo de Pix2Pix detalla en su paper (link arriba).
 
-Todos los pesos de tanto el generador como el discriminador asi como todas las variables son guardadas en la carpeta tf_checkpoints y recupera el ultimo guardado al ejecutar el codigo.
+Todos los pesos de tanto el generador como el discriminador asi como todas las variables son guardadas en la carpeta `tf_checkpoints` y recupera el ultimo punto guardado al ejecutar el codigo.
 
+
+## Anexo
+
+Asegurate de que en la misma carpeta que `run.py` existe:
+- Un arhcivo llamado `epochs.txt` con una única linea escrita donde ponga `0`
+- una carpeta llamada `output`, `output_2` y `tf_checkpionts`
+- Si utilizas tu propio dataset asegurate de que tus imagenes sean de `256 x 256`, y que en tus 2 carpetas tengas 
+  exactamente el mismo numero de imagenes y que el nombre de cada archivo de una carpeta sea exactamente igual a cada 
+  correspondiene imagen de la otra carpeta
 
 
 
