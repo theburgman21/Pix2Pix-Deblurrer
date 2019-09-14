@@ -81,12 +81,14 @@ Cada iteración tarda unos 6 minutos en una GTX 960 con `n=1000` y fue entrenado
 
 También es posible entrenar usando la CPU pero cualquier tarjeta gráfica barata de hace unos años es minimo el doble de rápida que cualquier procesador de alta gama actual.
 
+Si vas a utilizar otro dataset o prefieres entrenar desde cero borra todo el contenido de la carpeta `tf_ckpts`
+
 
 ## Evaluación y guardado
 
 El modelo trata de mejorar las imágenes generadas mediante un valor de error determinado por `total_gen_loss = gan_loss + (100 * pixel_loss)` donde `gan_loss` es el valor de error generado por el discriminador (patchGAN) y `pixel_loss` es la diferencia media en el valor de cada pixel entre la imágen original y la generada. `pixel_loss`esta multiplicado por `100`para que sea 100 veces mas significativo que el valor del discriminador lo cual mejora los resultados según el equipo de Pix2Pix detalla en su paper (link arriba).
 
-Todos los pesos de tanto el generador como el discriminador así como todas las variables son guardadas en la carpeta `tf_checkpoints` y recupera el ultimo punto guardado al ejecutar el codigo.
+Todos los pesos de tanto el generador como el discriminador así como todas las variables son guardadas en la carpeta `tf_ckpts` y recupera el ultimo punto guardado al ejecutar el codigo.
 
 
 ## Como usar el modelo pre-entrenado:
@@ -100,7 +102,7 @@ Modificar la variable `epoch_number` al numero de iteraciones de entrenamiento q
 
 Asegurate de que en la misma carpeta que `run.py` existe:
 - Un archivo llamado `epochs.txt` con una única línea escrita donde ponga `0`
-- una carpeta llamada `output`, `output_2` y `tf_checkpoints`
+- una carpeta llamada `output`, `output_2` y `tf_ckpts`
 - Si utilizas tu propio dataset asegúrate de que tus imágenes sean de `256 x 256`, y que en tus 2 carpetas tengas 
   exáctamente el mismo número de imágenes y que el nombre de cada archivo de una carpeta sea exáctamente igual a cada 
   correspondiente imágen de la otra carpeta.
